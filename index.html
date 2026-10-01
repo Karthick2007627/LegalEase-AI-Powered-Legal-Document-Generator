@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LegalEase | AI-Powered Legal Document Generator</title>
+<meta name="description" content="LegalEase drafts employment contracts, NDAs and lease agreements from a few simple inputs. Edit the result and export to PDF, DOCX or TXT.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#edf0f4;--paper:#fff;--ink:#0f2544;--muted:#566275;--line:#d3d9e2;--seal:#8c1d2f;--seal-d:#6e1524;--serif:"Newsreader",Georgia,"Times New Roman",serif;--sans:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--seal);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.15;letter-spacing:-.01em}
+h1{font-size:clamp(2.4rem,5.4vw,4rem)}
+h2{font-size:clamp(1.8rem,3.4vw,2.5rem);margin-bottom:12px}
+h3{font-size:1.3rem;margin-bottom:6px}
+p.lead{font-size:1.1rem;color:var(--muted);max-width:60ch}
+section{padding:88px 0}
+header{position:sticky;top:0;z-index:10;background:rgba(237,240,244,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{font-family:var(--serif);font-size:1.4rem;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand svg{width:28px;height:28px}
+nav ul{display:flex;gap:26px;list-style:none;padding:0}
+nav ul a{text-decoration:none;font-size:.95rem;color:var(--muted);font-weight:500}
+nav ul a:hover{color:var(--seal)}
+.btn{display:inline-block;background:var(--seal);color:#fff;border:0;padding:12px 22px;border-radius:6px;font:600 1rem var(--sans);text-decoration:none;cursor:pointer;transition:background .2s}
+.btn:hover{background:var(--seal-d)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:#fff}
+.menu{display:none;background:none;border:1.5px solid var(--ink);border-radius:6px;padding:6px 12px;font:500 .9rem var(--sans);color:var(--ink);cursor:pointer}
+
+/* hero */
+.hero{padding:64px 0 88px}
+.hero-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center}
+.hero p.lead{margin:20px 0 28px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.meta{margin-top:26px;font-size:.92rem;color:var(--muted)}
+.desk{background:var(--ink);border-radius:14px;padding:18px;display:grid;gap:14px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form label{font-size:.78rem;color:#b9c4d6;display:block;margin-bottom:3px}
+.form select,.form input{width:100%;padding:9px 10px;border-radius:6px;border:1px solid #2f4468;background:#172f57;color:#fff;font:.9rem var(--sans)}
+.form .full{grid-column:1/-1}
+.desk .btn{justify-self:start}
+.sheet{background:var(--paper);border-radius:4px;padding:26px 28px;min-height:270px;font-family:var(--serif);font-size:.98rem;line-height:1.6;box-shadow:0 10px 30px rgba(0,0,0,.25);position:relative;overflow:hidden}
+.sheet h4{font-size:1.15rem;text-align:center;margin-bottom:10px}
+.sheet .cl{margin-top:8px}
+.sheet .cl b{font-weight:600}
+.caret::after{content:"";display:inline-block;width:2px;height:1em;background:var(--seal);vertical-align:-2px;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.seal{position:absolute;right:18px;bottom:14px;width:54px;height:54px;border-radius:50%;background:var(--seal);color:#fff;display:grid;place-items:center;font:600 .62rem var(--sans);text-align:center;line-height:1.1;transform:rotate(-12deg);opacity:0;transition:opacity .4s}
+.seal.on{opacity:.92}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:44px;counter-reset:s}
+.step{padding:0 22px 0 0;border-top:2px solid var(--ink);padding-top:18px;counter-increment:s}
+.step::before{content:counter(s);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font:600 .9rem var(--sans);margin-bottom:12px}
+.step p{color:var(--muted);font-size:.95rem}
+
+/* features */
+.alt{background:var(--paper);border-block:1px solid var(--line)}
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:0 56px;margin-top:40px}
+.feat div{padding:20px 0;border-bottom:1px solid var(--line)}
+.feat p{color:var(--muted);font-size:.97rem}
+
+/* scenarios */
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
+.doc{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:26px;border-top:5px solid var(--seal)}
+.doc small{color:var(--seal);font-weight:600;font-size:.85rem}
+.doc p{color:var(--muted);font-size:.96rem;margin-top:8px}
+.doc .out{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:.88rem;color:var(--ink)}
+
+/* architecture */
+.flow{display:flex;align-items:stretch;gap:0;margin-top:40px;flex-wrap:wrap}
+.node{flex:1 1 150px;background:var(--ink);color:#fff;padding:18px;border-radius:8px;position:relative;margin-right:26px}
+.node:last-child{margin-right:0}
+.node:not(:last-child)::after{content:"";position:absolute;right:-20px;top:50%;width:14px;height:14px;border-top:3px solid var(--seal);border-right:3px solid var(--seal);transform:translateY(-50%) rotate(45deg)}
+.node b{display:block;font-family:var(--serif);font-size:1.1rem;margin-bottom:4px}
+.node span{font-size:.85rem;color:#b9c4d6}
+.stack{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
+.stack span{border:1.5px solid var(--ink);border-radius:999px;padding:6px 16px;font-size:.92rem;font-weight:500}
+
+/* milestones */
+.tl{margin-top:40px;border-left:2px solid var(--ink);padding-left:28px;display:grid;gap:26px}
+.tl div{position:relative}
+.tl div::before{content:"";position:absolute;left:-37px;top:7px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--seal)}
+.alt .tl div::before{background:var(--paper)}
+.tl p{color:var(--muted);font-size:.96rem;max-width:70ch}
+
+/* team */
+.team{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:40px}
+.member{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:22px;text-align:center}
+.avatar{width:84px;height:84px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font:600 1.6rem var(--serif);margin:0 auto 14px}
+.member p{font-size:.9rem;color:var(--muted)}
+.member a{font-size:.85rem;color:var(--seal);font-weight:500}
+.note{margin-top:24px;font-size:.9rem;color:var(--muted)}
+
+footer{background:var(--ink);color:#c8d2e2;padding:44px 0;font-size:.92rem}
+footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+footer b{font-family:var(--serif);font-size:1.3rem;color:#fff;display:block;margin-bottom:6px}
+
+@media(max-width:900px){
+ .hero-grid,.feat{grid-template-columns:1fr}
+ .steps,.scen,.team{grid-template-columns:1fr 1fr}
+ .step{padding-bottom:20px}
+ .menu{display:block}
+ nav ul{display:none;position:absolute;top:64px;left:0;right:0;background:var(--bg);flex-direction:column;padding:16px 24px;gap:14px;border-bottom:1px solid var(--line)}
+ nav ul.open{display:flex}
+ .node{margin:0 0 26px}
+ .node:not(:last-child)::after{right:auto;left:50%;top:auto;bottom:-20px;transform:translateX(-50%) rotate(135deg)}
+}
+@media(max-width:560px){.steps,.scen,.team{grid-template-columns:1fr}section{padding:64px 0}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.caret::after{animation:none}}
+</style>
+</head>
+<body>
+<header>
+ <div class="wrap">
+  <nav aria-label="Main">
+   <a class="brand" href="#top"><svg viewBox="0 0 32 32" fill="none" stroke="#0f2544" stroke-width="2" aria-hidden="true"><path d="M16 4v24M8 28h16M6 9h20"/><path d="M6 9l-4 9h8zM26 9l-4 9h8z"/></svg>LegalEase</a>
+   <button class="menu" aria-expanded="false" aria-controls="links">Menu</button>
+   <ul id="links">
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#scenarios">Use cases</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#milestones">Milestones</a></li>
+    <li><a href="#team">Team</a></li>
+   </ul>
+  </nav>
+ </div>
+</header>
+
+<main id="top">
+<section class="hero">
+ <div class="wrap hero-grid">
+  <div>
+   <h1>Legal documents, drafted in minutes.</h1>
+   <p class="lead">Tell LegalEase who is involved, what was agreed and when it starts. Gemini 1.5 Pro drafts a structured agreement you can edit and download as PDF, DOCX or TXT.</p>
+   <div class="cta"><a class="btn" href="#demo">Try the demo</a><a class="btn ghost" href="#how">See how it works</a></div>
+   <p class="meta">Built with FastAPI, Streamlit and Google Gemini. No legal background needed.</p>
+  </div>
+  <div class="desk" id="demo" aria-label="Interactive demo">
+   <div class="form">
+    <div class="full"><label for="dt">Document type</label>
+     <select id="dt"><option value="c">Freelance Work Contract</option><option value="n">Non-Disclosure Agreement</option><option value="l">Lease Agreement</option></select></div>
+    <div><label for="pa">Parties involved</label><input id="pa" value="Jane Doe (Service Provider), TechNova Inc. (Client)"></div>
+    <div><label for="da">Effective date</label><input id="da" value="April 15, 2025"></div>
+   </div>
+   <button class="btn" id="go" type="button">Generate document</button>
+   <div class="sheet" aria-live="polite"><h4 id="st"></h4><div id="sb" class="caret"></div><div class="seal" id="sl">Ready to<br>sign</div></div>
+  </div>
+ </div>
+</section>
+
+<section id="how" class="alt">
+ <div class="wrap">
+  <h2>From a few details to a finished file</h2>
+  <p class="lead">Four fields in, one document out. Every step happens in the same page.</p>
+  <div class="steps">
+   <div class="step"><h3>Enter details</h3><p>Add the document type, parties, terms and effective date. Separate terms with semicolons.</p></div>
+   <div class="step"><h3>Generate</h3><p>The request goes to the FastAPI backend, which asks Gemini for a full legal draft.</p></div>
+   <div class="step"><h3>Review and edit</h3><p>Read the styled preview, then open the editor to change any clause.</p></div>
+   <div class="step"><h3>Download</h3><p>Export a branded PDF, a Word file with a terms table, or plain text.</p></div>
+  </div>
+ </div>
+</section>
+
+<section id="features">
+ <div class="wrap">
+  <h2>Made for people who are not lawyers</h2>
+  <p class="lead">Professional structure and formatting, without the drafting effort.</p>
+  <div class="feat">
+   <div><h3>Many document types</h3><p>Employment contracts, NDAs, lease agreements, freelance contracts and offer letters.</p></div>
+   <div><h3>Editable preview</h3><p>Change the wording in place before you export. Your edits carry into every format.</p></div>
+   <div><h3>Three export formats</h3><p>PDF with logo and footer on every page, DOCX in Times New Roman, and clean TXT.</p></div>
+   <div><h3>Automatic terms table</h3><p>Semicolon-separated terms become a table in Word and bullet points in PDF.</p></div>
+   <div><h3>Custom branding</h3><p>Add your own logo, fonts and footer so documents look like they came from your company.</p></div>
+   <div><h3>Secure by design</h3><p>The Gemini API key stays in a server-side .env file and never reaches the browser.</p></div>
+  </div>
+ </div>
+</section>
+
+<section id="scenarios" class="alt">
+ <div class="wrap">
+  <h2>Who uses LegalEase</h2>
+  <div class="scen">
+   <article class="doc"><small>Employment contract</small><h3>The startup founder</h3><p>Enters details about a new hire and gets clauses for role, responsibilities, pay and confidentiality.</p><p class="out">Adds the company logo and downloads a branded PDF.</p></article>
+   <article class="doc"><small>Non-disclosure agreement</small><h3>The freelancer</h3><p>Names the parties, the scope of confidentiality and the effective date before a client call.</p><p class="out">Receives a structured NDA instantly.</p></article>
+   <article class="doc"><small>Residential lease</small><h3>The landlord</h3><p>Adds the property address, tenant details and lease terms.</p><p class="out">Gets an editable lease and a .DOCX to send.</p></article>
+  </div>
+ </div>
+</section>
+
+<section id="architecture">
+ <div class="wrap">
+  <h2>How it is built</h2>
+  <p class="lead">A simple pipeline: the browser talks to FastAPI, FastAPI talks to Gemini, and formatters produce the files.</p>
+  <div class="flow">
+   <div class="node"><b>Streamlit UI</b><span>Inputs, preview, editor, downloads</span></div>
+   <div class="node"><b>FastAPI</b><span>POST /generate with a Pydantic DocumentRequest</span></div>
+   <div class="node"><b>Gemini generator</b><span>ai_core/gemini_generator.py builds the prompt</span></div>
+   <div class="node"><b>Gemini 1.5 Pro</b><span>Returns the structured legal text</span></div>
+   <div class="node"><b>Formatters</b><span>TXT, DOCX (python-docx), PDF (fpdf)</span></div>
+  </div>
+  <div class="stack" aria-label="Technology stack"><span>Python 3.10+</span><span>FastAPI</span><span>Uvicorn</span><span>Streamlit</span><span>google-generativeai</span><span>python-docx</span><span>fpdf</span><span>Pillow</span><span>python-dotenv</span></div>
+ </div>
+</section>
+
+<section id="milestones" class="alt">
+ <div class="wrap">
+  <h2>Project milestones</h2>
+  <div class="tl">
+   <div><h3>Model selection and architecture</h3><p>Chose gemini-1.5-pro for its long context window and structured output, then defined the frontend, backend and AI core.</p></div>
+   <div><h3>Core functionality</h3><p>Built document generation, the editable preview and the TXT, DOCX and PDF formatters.</p></div>
+   <div><h3>API logic</h3><p>Created main.py and routes.py with a health-check route and the /generate endpoint.</p></div>
+   <div><h3>Frontend</h3><p>Designed the Streamlit interface with logo, input fields, dark preview card and download buttons.</p></div>
+   <div><h3>Deployment</h3><p>Set up the virtual environment, requirements.txt and .env, then tested the backend on port 8000 and the UI on 8501.</p></div>
+  </div>
+ </div>
+</section>
+
+<section id="team">
+ <div class="wrap">
+  <h2>The team</h2>
+  <p class="lead">Built during the SmartBridge and SmartInternz internship program.</p>
+  <div class="team" id="tm"></div>
+  <p class="note">Edit the <code>TEAM</code> list at the bottom of this file to add your names, roles and links.</p>
+ </div>
+</section>
+</main>
+
+<footer>
+ <div class="wrap">
+  <div><b>LegalEase</b>AI-powered legal document generator.</div>
+  <div>Generated documents are drafts and are not a substitute for advice from a qualified lawyer.<br>&copy; <span id="yr"></span> LegalEase team. Project by SmartBridge &amp; SmartInternz.</div>
+ </div>
+</footer>
+
+<script>
+/* ---- Team: replace with your real details ---- */
+const TEAM=[
+ {name:"Team Member 1",role:"Team Lead, Backend (FastAPI)",link:"#"},
+ {name:"Team Member 2",role:"AI Integration (Gemini)",link:"#"},
+ {name:"Team Member 3",role:"Frontend (Streamlit)",link:"#"},
+ {name:"Team Member 4",role:"Document Formatting and Testing",link:"#"}
+];
+document.getElementById("tm").innerHTML=TEAM.map(m=>{
+ const i=m.name.split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();
+ return `<div class="member"><div class="avatar" aria-hidden="true">${i}</div><h3>${m.name}</h3><p>${m.role}</p><a href="${m.link}">Profile</a></div>`}).join("");
+document.getElementById("yr").textContent=new Date().getFullYear();
+
+/* ---- Nav toggle ---- */
+const mb=document.querySelector(".menu"),ul=document.getElementById("links");
+mb.onclick=()=>{const o=ul.classList.toggle("open");mb.setAttribute("aria-expanded",o)};
+ul.onclick=e=>{if(e.target.tagName==="A"){ul.classList.remove("open");mb.setAttribute("aria-expanded","false")}};
+
+/* ---- Demo (simulated output; the real app calls Gemini) ---- */
+const $=id=>document.getElementById(id);
+const CL={
+ c:["Services: The Service Provider will deliver the agreed work by the deadline set in this Agreement.","Payment: The Client will pay within seven (7) days of receiving a valid invoice.","Intellectual property: All work product belongs to the Client.","Confidentiality: Both parties will keep confidential information private."],
+ n:["Confidential information: Any non-public business, technical or financial information shared by either party.","Obligations: The receiving party will not disclose or misuse confidential information.","Term: These duties continue for three (3) years after the Effective Date.","Return of materials: All confidential materials must be returned on request."],
+ l:["Premises: The Landlord leases the property to the Tenant for residential use only.","Rent: Rent is payable monthly in advance on the first day of each month.","Deposit: The Tenant will pay a refundable security deposit.","Termination: Either party may end this Lease with thirty (30) days written notice."]
+};
+let timer;
+function draft(){
+ clearInterval(timer);
+ const k=$("dt").value,t=$("dt").selectedOptions[0].text,p=$("pa").value.trim()||"[Parties]",d=$("da").value.trim()||"[Date]";
+ $("st").textContent=t;$("sl").classList.remove("on");
+ const txt=[`This ${t} is made on ${d} between ${p}.`,...CL[k].map((c,i)=>`${i+1}. ${c}`)].join("\n");
+ const out=$("sb");out.className="caret";out.textContent="";
+ let n=0;
+ timer=setInterval(()=>{
+  n+=3;out.innerHTML=txt.slice(0,n).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\n/g,"<div class='cl'></div>");
+  if(n>=txt.length){clearInterval(timer);out.className="";$("sl").classList.add("on")}
+ },14);
+}
+$("go").onclick=draft;draft();
+</script>
+</body>
+</html>
